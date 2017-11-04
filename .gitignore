@@ -1,2 +1,35 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so*
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+
+# Executables
+*.exe
+*.out
+*.app
+
+build/
 *.swp
-build/*
+*.DS_Store
+*.dylib
+
+# large psd files
+*.psd
+
+CMakeLists.txt
+external/assimp/distrib/osx/libassimp.dylib
