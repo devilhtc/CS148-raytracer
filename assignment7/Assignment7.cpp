@@ -5,8 +5,23 @@ std::shared_ptr<Camera> Assignment7::CreateCamera() const
 {
     const glm::vec2 resolution = GetImageOutputResolution();
     std::shared_ptr<Camera> camera = std::make_shared<PerspectiveCamera>(resolution.x / resolution.y, 26.6f);
-    camera->SetPosition(glm::vec3(0.f, -4.1469f, 0.73693f));
-    camera->Rotate(glm::vec3(1.f, 0.f, 0.f), PI / 2.f);
+    //camera->SetPosition(glm::vec3(0.f, -4.1469f, 0.73693f));
+    //camera->Rotate(glm::vec3(1.f, 0.f, 0.f), PI / 2.f);
+    
+    
+    // const glm::vec2 resolution = GetImageOutputResolution();
+    // std::shared_ptr<Camera> camera = std::make_shared<PerspectiveCamera>(resolution.x / resolution.y, 26.6f);
+    // camera->SetPosition(glm::vec3(0.f, -4.1469f, 0.73693f));
+    // camera->Rotate(glm::vec3(1.f, 0.f, 0.f), PI / 2.f);
+    camera->SetPosition(glm::vec3(-35.698f, 40.571f, -20.f));
+    camera->Rotate(glm::vec3(SceneObject::GetWorldUp()), -3.1f * PI / 5.f);
+    camera->Rotate(glm::vec3(camera->GetRightDirection()), -PI / 10.f);
+    camera->Translate(glm::vec3(camera->GetRightDirection()) * 10.f);
+    camera->Translate(glm::vec3(camera->GetForwardDirection()) * -10.f);
+    PerspectiveCamera* pcamera = static_cast<PerspectiveCamera*>(camera.get());
+    pcamera->SetZFar(1000.f);
+    //return camera;
+    
     return camera;
 }
 
@@ -29,7 +44,8 @@ std::shared_ptr<Scene> Assignment7::CreateScene() const
 
     // Objects
     std::vector<std::shared_ptr<aiMaterial>> loadedMaterials;
-    std::vector<std::shared_ptr<MeshObject>> cubeObjects = MeshLoader::LoadMesh("CornellBox/CornellBox-Assignment7-Alt.obj", &loadedMaterials);
+    // std::vector<std::shared_ptr<MeshObject>> cubeObjects = MeshLoader::LoadMesh("CornellBox/CornellBox-Assignment7-Alt.obj", &loadedMaterials);
+    std::vector<std::shared_ptr<MeshObject>> cubeObjects = MeshLoader::LoadMesh("mtv/ss4.obj", &loadedMaterials);
     for (size_t i = 0; i < cubeObjects.size(); ++i) {
         std::shared_ptr<Material> materialCopy = cubeMaterial->Clone();
         materialCopy->LoadMaterialFromAssimp(loadedMaterials[i]);
