@@ -16,8 +16,9 @@ std::shared_ptr<Camera> Assignment7::CreateCamera() const
     camera->SetPosition(glm::vec3(-35.698f, 40.571f, -20.f));
     camera->Rotate(glm::vec3(SceneObject::GetWorldUp()), -3.1f * PI / 5.f);
     camera->Rotate(glm::vec3(camera->GetRightDirection()), -PI / 10.f);
-    camera->Translate(glm::vec3(camera->GetRightDirection()) * 10.f);
-    camera->Translate(glm::vec3(camera->GetForwardDirection()) * -10.f);
+    camera->Translate(glm::vec3(camera->GetRightDirection()) * 3.f);
+    camera->Translate(glm::vec3(camera->GetForwardDirection()) * 27.f);
+    camera->Translate(glm::vec3(camera->GetUpDirection()) * -26.f);
     PerspectiveCamera* pcamera = static_cast<PerspectiveCamera*>(camera.get());
     pcamera->SetZFar(1000.f);
     //return camera;
@@ -37,15 +38,20 @@ std::shared_ptr<Scene> Assignment7::CreateScene() const
     std::shared_ptr<Scene> newScene = std::make_shared<Scene>();
 
     // Material
+    
+    float specularity = 0.2f;
     std::shared_ptr<BlinnPhongMaterial> cubeMaterial = std::make_shared<BlinnPhongMaterial>();
     cubeMaterial->SetDiffuse(glm::vec3(1.f, 1.f, 1.f));
-    cubeMaterial->SetSpecular(glm::vec3(0.6f, 0.6f, 0.6f), 40.f);
-    cubeMaterial->SetReflectivity(0.3f);
+    cubeMaterial->SetSpecular(glm::vec3(specularity, specularity, specularity), 40.f);
+    cubeMaterial->SetReflectivity(0.05f);
+    cubeMaterial->SetTexture("diffuseTexture", TextureLoader::LoadTexture("mtv/ss4uvPainted.png"));
+    cubeMaterial->SetTexture("specularTexture", TextureLoader::LoadTexture("mtv/ss4uvPainted.png"));
+    //cubeMaterial->SetTexture("diffuseTexture", TextureLoader::LoadTexture("mtv/ss4uvPainted.png"));
 
     // Objects
     std::vector<std::shared_ptr<aiMaterial>> loadedMaterials;
     // std::vector<std::shared_ptr<MeshObject>> cubeObjects = MeshLoader::LoadMesh("CornellBox/CornellBox-Assignment7-Alt.obj", &loadedMaterials);
-    std::vector<std::shared_ptr<MeshObject>> cubeObjects = MeshLoader::LoadMesh("mtv/ss4.obj", &loadedMaterials);
+    std::vector<std::shared_ptr<MeshObject>> cubeObjects = MeshLoader::LoadMesh("mtv/ss7.obj", &loadedMaterials);
     for (size_t i = 0; i < cubeObjects.size(); ++i) {
         std::shared_ptr<Material> materialCopy = cubeMaterial->Clone();
         materialCopy->LoadMaterialFromAssimp(loadedMaterials[i]);
@@ -72,7 +78,8 @@ std::shared_ptr<Scene> Assignment7::CreateScene() const
 
     // Lights
     std::shared_ptr<Light> pointLight = std::make_shared<PointLight>();
-    pointLight->SetPosition(glm::vec3(0.01909f, 0.0101f, 1.97028f));
+    //pointLight->SetPosition(glm::vec3(0.01909f, 0.0101f, 1.97028f));
+    pointLight->SetPosition(glm::vec3(10.f, 10.f, 10.f));
     pointLight->SetLightColor(glm::vec3(1.f, 1.f, 1.f));
 
 #if ACCELERATION_TYPE == 0
