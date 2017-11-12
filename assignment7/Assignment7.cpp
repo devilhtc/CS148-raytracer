@@ -100,7 +100,7 @@ std::shared_ptr<Scene> Assignment7::CreateScene() const
 std::shared_ptr<ColorSampler> Assignment7::CreateSampler() const
 {
     std::shared_ptr<JitterColorSampler> jitter = std::make_shared<JitterColorSampler>();
-    jitter->SetGridSize(glm::ivec3(1, 1, 1));
+    jitter->SetGridSize(glm::ivec3(2, 2, 2));
     return jitter;
 }
 
@@ -111,7 +111,7 @@ std::shared_ptr<class Renderer> Assignment7::CreateRenderer(std::shared_ptr<Scen
 
 int Assignment7::GetSamplesPerPixel() const
 {
-    return 1;
+    return 16;
 }
 
 bool Assignment7::NotifyNewPixelSample(glm::vec3 inputSampleColor, int sampleIndex)
@@ -121,15 +121,16 @@ bool Assignment7::NotifyNewPixelSample(glm::vec3 inputSampleColor, int sampleInd
 
 int Assignment7::GetMaxReflectionBounces() const
 {
-    return 2;
+    return 4;
 }
 
 int Assignment7::GetMaxRefractionBounces() const
 {
-    return 4;
+    return 8;
 }
 
 glm::vec2 Assignment7::GetImageOutputResolution() const
 {
-    return glm::vec2(640.f, 480.f);
+    //return glm::vec2(640.f, 480.f);
+    return glm::vec2(960.f, 720.f);
 }
