@@ -24,9 +24,10 @@
 #include "common/Utility/Diagnostics/Diagnostics.h"
 
 const float PI = 3.14159265359f;
-const float LARGE_EPSILON = 1e-5f;
-const float SMALL_EPSILON = 1e-7f;
-
+//const float LARGE_EPSILON = 1e-5f;
+//const float SMALL_EPSILON = 1e-7f;
+const float LARGE_EPSILON = 1e-4f;
+const float SMALL_EPSILON = 1e-6f;
 
 #define STRINGIFY_HELPER(x) #x
 #define STRINGIFY(x) STRINGIFY_HELPER(x)

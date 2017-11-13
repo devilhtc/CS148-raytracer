@@ -5,6 +5,9 @@
 #include "common/Rendering/Material/Material.h"
 #include "common/Acceleration/AccelerationCommon.h"
 
+const float LARGERRR_EPSILON = LARGE_EPSILON;
+const float SMALLERRR_EPSILON = SMALL_EPSILON;
+
 void Scene::GenerateDefaultAccelerationData()
 {
     if (!acceleration) {
@@ -53,7 +56,7 @@ bool Scene::Trace(class Ray* inputRay, IntersectionState* outputIntersection) co
             outputIntersection->refractionIntersection = std::make_shared<IntersectionState>(outputIntersection->remainingReflectionBounces, outputIntersection->remainingRefractionBounces - 1);
 
             // If we're going into the mesh, set the target IOR to be the IOR of the mesh.
-            float targetIOR = (NdR < SMALL_EPSILON) ? currentMaterial->GetIOR() : 1.f;
+            float targetIOR = (NdR < SMALLERRR_EPSILON) ? currentMaterial->GetIOR() : 1.f;
 
             Ray refractionRay;
             PerformRayRefraction(refractionRay, *inputRay, intersectionPoint, NdR, *outputIntersection, targetIOR);
@@ -67,16 +70,16 @@ bool Scene::Trace(class Ray* inputRay, IntersectionState* outputIntersection) co
 
 void Scene::PerformRaySpecularReflection(Ray& outputRay, const Ray& inputRay, const glm::vec3& intersectionPoint, const float NdR, const IntersectionState& state) const
 {
-    const glm::vec3 normal = (NdR > SMALL_EPSILON) ? -1.f * state.ComputeNormal() : state.ComputeNormal();
+    const glm::vec3 normal = (NdR > SMALLERRR_EPSILON) ? -1.f * state.ComputeNormal() : state.ComputeNormal();
     const glm::vec3 reflectionDir = glm::reflect(inputRay.GetRayDirection(), normal);
-    outputRay.SetRayPosition(intersectionPoint + LARGE_EPSILON * reflectionDir);
+    outputRay.SetRayPosition(intersectionPoint + LARGERRR_EPSILON * reflectionDir);
     outputRay.SetRayDirection(reflectionDir);
 }
 
 void Scene::PerformRayRefraction(Ray& outputRay, const Ray& inputRay, const glm::vec3& intersectionPoint, const float NdR, const IntersectionState& state, float& targetIOR) const
 {
     const glm::vec3 refractionDir = inputRay.RefractRay(state.ComputeNormal(), state.currentIOR, targetIOR);
-    outputRay.SetRayPosition(intersectionPoint + LARGE_EPSILON * refractionDir);
+    outputRay.SetRayPosition(intersectionPoint + LARGERRR_EPSILON * refractionDir);
     outputRay.SetRayDirection(refractionDir);
 }
 
