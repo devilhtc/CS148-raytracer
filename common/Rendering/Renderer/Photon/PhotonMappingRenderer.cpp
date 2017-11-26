@@ -160,9 +160,13 @@ void PhotonMappingRenderer::TracePhoton(PhotonKdtree& photonMap, Ray* photonRay,
     // 3rd step, get the absolute bounce direction by essentially a matrix multiplication
     glm::vec3 absolute_bounce_direction  =  get_absolute_bounce_direction(relative_bounce_direction, surface_normal, surface_tangent, surface_bitangent);
     
-    glm::vec3 newRayPosition = intersectionPoint + LARGE_EPSILON * absolute_bounce_direction;
     
     // update ray parameters (after bouncing)
+    
+    // apply offset (so that it won't self-intersect)
+    glm::vec3 newRayPosition = intersectionPoint + LARGE_EPSILON * absolute_bounce_direction;
+    
+    // update 
     photonRay->SetRayDirection(absolute_bounce_direction);
     photonRay->SetRayPosition(newRayPosition);
     
