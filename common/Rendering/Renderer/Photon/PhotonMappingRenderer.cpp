@@ -118,6 +118,7 @@ void PhotonMappingRenderer::TracePhoton(PhotonKdtree& photonMap, Ray* photonRay,
         Photon myPhoton;
         myPhoton.position = intersectionPoint;
         myPhoton.intensity = lightIntensity;
+
         photonMap.insert(myPhoton);
     }
     
@@ -166,7 +167,7 @@ void PhotonMappingRenderer::TracePhoton(PhotonKdtree& photonMap, Ray* photonRay,
     // apply offset (so that it won't self-intersect)
     glm::vec3 newRayPosition = intersectionPoint + LARGE_EPSILON * absolute_bounce_direction;
     
-    // update 
+    // update
     photonRay->SetRayDirection(absolute_bounce_direction);
     photonRay->SetRayPosition(newRayPosition);
     

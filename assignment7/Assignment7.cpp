@@ -111,7 +111,7 @@ std::shared_ptr<class Renderer> Assignment7::CreateRenderer(std::shared_ptr<Scen
 
 int Assignment7::GetSamplesPerPixel() const
 {
-    return 16;
+    return 4;
 }
 
 bool Assignment7::NotifyNewPixelSample(glm::vec3 inputSampleColor, int sampleIndex)
@@ -121,16 +121,16 @@ bool Assignment7::NotifyNewPixelSample(glm::vec3 inputSampleColor, int sampleInd
 
 int Assignment7::GetMaxReflectionBounces() const
 {
-    return 4;
+    return 2;
 }
 
 int Assignment7::GetMaxRefractionBounces() const
 {
-    return 8;
+    return 4;
 }
 
 glm::vec2 Assignment7::GetImageOutputResolution() const
 {
-    //return glm::vec2(640.f, 480.f);
-    return glm::vec2(960.f, 720.f);
+    return glm::vec2(640.f, 480.f);
+    //return glm::vec2(960.f, 720.f);
 }
