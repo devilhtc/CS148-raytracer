@@ -33,3 +33,5 @@ build/
 
 CMakeLists.txt
 external/assimp/distrib/osx/libassimp.dylib
+
+assets/final/
